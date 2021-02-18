@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "33a95ed0-0c2a-47bb-b05d-952d10d5a4b7",
+		"name": "Portability Kit",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Banco de Chile",
+			"item": [
+				{
+					"name": "Userdata",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{USERNAME}}\",\n    \"password\": \"{{PASSWORD}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/banco-chile/userdata",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"banco-chile",
+								"userdata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recipients",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{USERNAME}}\",\n    \"password\": \"{{PASSWORD}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/banco-chile/recipients",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"banco-chile",
+								"recipients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transactions",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{USERNAME}}\",\n    \"password\": \"{{PASSWORD}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/banco-chile/transactions",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"banco-chile",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Products",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{USERNAME}}\",\n    \"password\": \"{{PASSWORD}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/banco-chile/products",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"banco-chile",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cards",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{USERNAME}}\",\n    \"password\": \"{{PASSWORD}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/banco-chile/cards",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"banco-chile",
+								"cards"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

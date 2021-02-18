@@ -4,7 +4,7 @@ from urllib.parse import urljoin, urlparse, urlunparse
 
 
 class BancoChile:
-    USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36"
+    USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36"
     RUT_REGEX = r"\d{1,2}[.]?\d{3}[.]?\d{3}-?[\dk]"
     API_BASE_URL = "https://portalpersonas.bancochile.cl/mibancochile/rest/persona/"
     LOGIN_URL = "https://login.bancochile.cl/bancochile-web/persona/login/index.html"
