@@ -142,6 +142,33 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Profile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{USERNAME}}\",\n    \"password\": \"{{PASSWORD}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/banco-chile/userdata",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"banco-chile",
+								"userdata"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
