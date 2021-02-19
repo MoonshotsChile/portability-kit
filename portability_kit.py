@@ -1,14 +1,15 @@
+import os
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from waitress import serve
-
 from scrapper.banco_chile import BancoChile
 
 
-
 app = Flask(__name__)
+CORS(app)
 
 
-@app.route('/api/banco-chile/recipients', methods=['POST'])
+@app.route('/portability-kit/banco-chile/recipients', methods=['POST'])
 def banco_chile_recipients():
     username = request.json["username"]
     password = request.json["password"]
@@ -17,7 +18,7 @@ def banco_chile_recipients():
     return jsonify(entity.recipients())
 
 
-@app.route('/api/banco-chile/transactions', methods=['POST'])
+@app.route('/portability-kit/banco-chile/transactions', methods=['POST'])
 def banco_chile_transactions():
     username = request.json["username"]
     password = request.json["password"]
@@ -26,7 +27,7 @@ def banco_chile_transactions():
     return jsonify(entity.transactions())
 
 
-@app.route('/api/banco-chile/products', methods=['POST'])
+@app.route('/portability-kit/banco-chile/products', methods=['POST'])
 def banco_chile_products():
     username = request.json["username"]
     password = request.json["password"]
@@ -35,7 +36,7 @@ def banco_chile_products():
     return jsonify(entity.products())
 
 
-@app.route('/api/banco-chile/cards', methods=['POST'])
+@app.route('/portability-kit/banco-chile/cards', methods=['POST'])
 def banco_chile_cards():
     username = request.json["username"]
     password = request.json["password"]
@@ -44,7 +45,7 @@ def banco_chile_cards():
     return jsonify(entity.products())
 
 
-@app.route('/api/banco-chile/profile', methods=['POST'])
+@app.route('/portability-kit/banco-chile/profile', methods=['POST'])
 def banco_chile_profile():
     username = request.json["username"]
     password = request.json["password"]
@@ -53,7 +54,7 @@ def banco_chile_profile():
     return jsonify(entity.profile())
 
 
-@app.route('/api/banco-chile/userdata', methods=['POST'])
+@app.route('/portability-kit/banco-chile/userdata', methods=['POST'])
 def banco_chile_userdata():
     username = request.json["username"]
     password = request.json["password"]
@@ -74,8 +75,11 @@ def run_server(_port=5000):
 
 if __name__ == '__main__':
     port = 5000
-    if not is_port_in_use(port):
-        # app.run(debug=True)
-        run_server(port)
+    if os.environ.get("PYTHON_ENV") == "prod":
+        if not is_port_in_use(port):
+            run_server(port)
+        else:
+            print(f"port {port} is already in use, see ya ;)")
     else:
-        print("port 5000 is already in use, see ya ;)")
+        app.run(debug=True)
+

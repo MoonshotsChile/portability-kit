@@ -8,6 +8,8 @@
 
 
 ### Test
-Import `test/Portability Kit.postman_collection.json` file into **Postman** app and initialize the Postman environment vars `USER_NAME`, `PASSWORD`, `BASE_URL`
+Import `test/Portability Kit.postman_collection.json` file into **Postman** app and initialize the Postman environment vars `USER_NAME`, `PASSWORD`, `BASE_URL`. 
+
+You must use real credentials if you want to see this working.
 
 Enjoy!
