@@ -1,6 +1,9 @@
 from flask import Flask, jsonify, request
+from waitress import serve
 
 from scrapper.banco_chile import BancoChile
+
+
 
 app = Flask(__name__)
 
@@ -59,5 +62,20 @@ def banco_chile_userdata():
     return jsonify(entity.userdata())
 
 
+def is_port_in_use(port):
+    import socket
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        return s.connect_ex(('localhost', port)) == 0
+
+
+def run_server(_port=5000):
+    serve(app, host='0.0.0.0', port=_port)
+
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = 5000
+    if not is_port_in_use(port):
+        # app.run(debug=True)
+        run_server(port)
+    else:
+        print("port 5000 is already in use, see ya ;)")
