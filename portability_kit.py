@@ -50,7 +50,7 @@ def banco_chile_profile():
     return jsonify(entity.profile())
 
 
-@app.route('/banco-chile/userdata', methods=['POST'])
+@app.route('/api/banco-chile/userdata', methods=['POST'])
 def banco_chile_userdata():
     username = request.json["username"]
     password = request.json["password"]
