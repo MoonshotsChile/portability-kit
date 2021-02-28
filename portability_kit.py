@@ -77,7 +77,7 @@ def banco_chile_bills():
     password = request.json["password"]
     entity = BancoChile(username, password)
     entity.login()
-    return entity.registered_bills()
+    return jsonify(entity.registered_bills())
 
 
 def is_port_in_use(port):

@@ -1,6 +1,6 @@
 import re
 import requests
-from urllib.parse import urljoin, urlparse, urlunparse
+from urllib.parse import urljoin, urlparse, urlunparse, urlencode
 
 
 class BancoChile:
@@ -125,7 +125,8 @@ class BancoChile:
     def registered_bills(self):
         try:
             session_key = self.session_key()
-            bills = self._call("pec/cuentas/inscritas?sesionKey=" + str(session_key, 'utf-8'))
+            params = urlencode({ 'sesionKey' : session_key })
+            bills = self._call("pec/cuentas/inscritas?" + params).json()
         except Exception:
             raise ValueError("Could not get bills")
 
