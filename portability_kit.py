@@ -4,7 +4,6 @@ from flask_cors import CORS
 from waitress import serve
 from scrapper.banco_chile import BancoChile
 
-
 app = Flask(__name__)
 CORS(app)
 
@@ -63,6 +62,24 @@ def banco_chile_userdata():
     return jsonify(entity.userdata())
 
 
+@app.route('/portability-kit/banco-chile/sessionkey', methods=['POST'])
+def banco_chile_sessionkey():
+    username = request.json["username"]
+    password = request.json["password"]
+    entity = BancoChile(username, password)
+    entity.login()
+    return entity.session_key()
+
+
+@app.route('/portability-kit/banco-chile/bills', methods=['POST'])
+def banco_chile_bills():
+    username = request.json["username"]
+    password = request.json["password"]
+    entity = BancoChile(username, password)
+    entity.login()
+    return entity.registered_bills()
+
+
 def is_port_in_use(port):
     import socket
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -82,4 +99,3 @@ if __name__ == '__main__':
             print(f"port {port} is already in use, see ya ;)")
     else:
         app.run(debug=True)
-

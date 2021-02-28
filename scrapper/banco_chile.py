@@ -52,6 +52,13 @@ class BancoChile:
         self.session.headers["Origin"] = self._get_origin(self.API_REFERER)
         self.logged_in = True
 
+    def session_key(self):
+        try:
+            sesionKey = self._call('pec/cuentas/sesionKey')
+        except Exception:
+            raise ValueError("Could not get session key")
+        return sesionKey.content
+
     def products(self):
         try:
             products = self._call('selectorproductos/selectorProductos/obtenerProductos').json()
@@ -115,6 +122,15 @@ class BancoChile:
 
         return profile
 
+    def registered_bills(self):
+        try:
+            session_key = self.session_key()
+            bills = self._call("pec/cuentas/inscritas?sesionKey=" + str(session_key, 'utf-8'))
+        except Exception:
+            raise ValueError("Could not get bills")
+
+        return bills
+
     def _call(self, url, method="get", enforce_login=True, *args, **kwargs):
         if enforce_login and not self.logged_in:
             raise ValueError("Scrapper should be logged in.")
@@ -131,5 +147,3 @@ class BancoChile:
     def _get_origin(referer):
         parsed = urlparse(referer)
         return f"{parsed.scheme}://{parsed.netloc}"
-
-
