@@ -14,7 +14,7 @@ class BancoChile:
 
     def __init__(self, username, password):
         if not re.match(self.RUT_REGEX, username):
-            raise ValueError("Username doesn't have RUT format.")
+            raise ValueError("Rut Inválido.")
         self.username = username
         self.password = password
         self.session = requests.Session()
@@ -49,7 +49,7 @@ class BancoChile:
                 response.status_code != 200
                 or urlunparse(urlparse(response.url)._replace(fragment="")) != self.API_REFERER
         ):
-            raise LoginFailedException("Login failed.")
+            raise LoginFailedException("Error al hacer Login.")
         self.session.headers["Referer"] = self.API_REFERER
         self.session.headers["Origin"] = self._get_origin(self.API_REFERER)
         self.logged_in = True
@@ -65,7 +65,7 @@ class BancoChile:
         try:
             products = self._call('selectorproductos/selectorProductos/obtenerProductos').json()
         except Exception:
-            raise ValueError("Could not get products")
+            raise ValueError("No se pudieron obtener productos")
         return products
 
     def transactions(self):
@@ -87,7 +87,7 @@ class BancoChile:
         try:
             transactions = self._call('movimientos/getcartola', method="post", json=cartola_request).json()
         except Exception:
-            raise ValueError("Could not get transactions")
+            raise ValueError("No se pudieron obtener los movimientos")
         return transactions
 
     def recipients(self, pagina='1', cantidad_items='100', prioriza_favorito='true'):
@@ -96,7 +96,7 @@ class BancoChile:
                 f"tef-agenda/agenda/search?pagina={pagina}&cantidadItems={cantidad_items}&priorizaFavorito={prioriza_favorito}"
             ).json()
         except Exception:
-            raise ValueError("Could not get recipients")
+            raise ValueError("No se pudieron obtener los destinatarios")
 
         return recipients
 
@@ -112,7 +112,7 @@ class BancoChile:
         try:
             profile = self._call("perfilamiento").json()
         except Exception:
-            raise ValueError("Could not get profile")
+            raise ValueError("No se pudo obtener datos de usuario")
 
         return profile
 
@@ -120,7 +120,7 @@ class BancoChile:
         try:
             profile = self._call("miperfil/datos").json()
         except Exception:
-            raise ValueError("Could not get userdata")
+            raise ValueError("No se pudo obtener datos de usuario")
 
         return profile
 
@@ -130,13 +130,13 @@ class BancoChile:
             params = urlencode({ 'sesionKey' : session_key })
             bills = self._call("pec/cuentas/inscritas?" + params).json()
         except Exception:
-            raise ValueError("Could not get bills")
+            raise ValueError("No se pudieron obtener cuentas")
 
         return bills
 
     def _call(self, url, method="get", enforce_login=True, *args, **kwargs):
         if enforce_login and not self.logged_in:
-            raise ValueError("Scrapper should be logged in.")
+            raise LoginFailedException("Debe iniciar sesión.")
         response = self.session.request(
             method,
             urljoin(self.API_BASE_URL, url),
