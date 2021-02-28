@@ -2,6 +2,8 @@ import re
 import requests
 from urllib.parse import urljoin, urlparse, urlunparse, urlencode
 
+from src.exceptions import LoginFailedException
+
 
 class BancoChile:
     USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36"
@@ -47,17 +49,17 @@ class BancoChile:
                 response.status_code != 200
                 or urlunparse(urlparse(response.url)._replace(fragment="")) != self.API_REFERER
         ):
-            raise Exception("Login failed.")
+            raise LoginFailedException("Login failed.")
         self.session.headers["Referer"] = self.API_REFERER
         self.session.headers["Origin"] = self._get_origin(self.API_REFERER)
         self.logged_in = True
 
     def session_key(self):
         try:
-            sesionKey = self._call('pec/cuentas/sesionKey')
+            session_key = self._call('pec/cuentas/sesionKey')
         except Exception:
             raise ValueError("Could not get session key")
-        return sesionKey.content
+        return session_key.content
 
     def products(self):
         try:

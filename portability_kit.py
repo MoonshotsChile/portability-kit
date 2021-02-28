@@ -2,7 +2,8 @@ import os
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from waitress import serve
-from scrapper.banco_chile import BancoChile
+from src.banco_chile import BancoChile
+from src.exceptions import LoginFailedException
 
 app = Flask(__name__)
 CORS(app)
@@ -78,6 +79,20 @@ def banco_chile_bills():
     entity = BancoChile(username, password)
     entity.login()
     return jsonify(entity.registered_bills())
+
+
+@app.errorhandler(LoginFailedException)
+def handle_login_failed(error):
+    response = jsonify(error.to_dict())
+    response.status_code = error.status_code
+    return response
+
+
+@app.errorhandler(ValueError)
+def handle_value_error(error):
+    response = jsonify(error.to_dict())
+    response.status_code = error.status_code
+    return response
 
 
 def is_port_in_use(port):
