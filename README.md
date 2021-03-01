@@ -3,8 +3,11 @@
 ### Install
 `pip install -r requirements.txt`
 
-### Launch
+### Launch in development mode
 `python portability_kit.py`
+
+### Launch in production mode
+`export PYTHON_ENV=prod; python portability_kit.py`
 
 
 ### Test
